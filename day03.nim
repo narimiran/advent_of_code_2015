@@ -10,22 +10,11 @@ const
   }.toTable()
 
 
-proc firstPart(instr: string): int =
-  var
-    position: Complex = (0.0, 0.0)
-    visited = initSet[(Complex)]()
-  visited.incl(position)
-  for m in instr:
-    position += movement[m]
-    visited.incl(position)
-  return card(visited)
-
-
-proc secondPart(instr: string): int =
+proc solve(instr: string, part: int): int =
   var
     santa: Complex = (0.0, 0.0)
     robot: Complex = (0.0, 0.0)
-    visited = initSet[(Complex)]()
+    visited = initSet[Complex]()
   visited.incl(santa)
 
   proc move(position: var Complex, m: char) =
@@ -33,12 +22,15 @@ proc secondPart(instr: string): int =
     visited.incl(position)
 
   for i, m in instr:
-    case i mod 2
-      of 0: santa.move(m)
-      of 1: robot.move(m)
-      else: discard
+    if part == 1:
+      santa.move(m)
+    else:
+      case i mod 2
+        of 0: santa.move(m)
+        of 1: robot.move(m)
+        else: discard
   return card(visited)
 
 
-echo firstPart(instructions)
-echo secondPart(instructions)
+echo solve(instructions, part=1)
+echo solve(instructions, part=2)
