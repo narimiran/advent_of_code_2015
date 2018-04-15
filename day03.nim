@@ -1,23 +1,31 @@
-import complex, sets, tables
+import sets, sequtils
+
+
+type Coordinate = tuple[x, y: int]
+
+proc parse(c: char): int =
+  case c
+    of '<': 0
+    of '>': 1
+    of '^': 2
+    of 'v': 3
+    else: -1
 
 const
-  instructions = readFile("./inputs/03.txt")
-  movement = {
-    '<': (re: -1.0, im: 0.0),
-    '>': (re: 1.0, im: 0.0),
-    '^': (re: 0.0, im: 1.0),
-    'v': (re: 0.0, im: -1.0),
-  }.toTable()
+  instructions = readFile("./inputs/03.txt").map(parse)
+  movement = [(-1, 0), (1, 0), (0, 1), (0, -1)]
 
+proc `+=`(a: var Coordinate, b: Coordinate) =
+  a = (a.x + b.x, a.y + b.y)
 
-proc solve(instr: string, part: int): int =
+proc solve(instr: seq[int], part: int): int =
   var
-    santa: Complex = (0.0, 0.0)
-    robot: Complex = (0.0, 0.0)
-    visited = initSet[Complex]()
+    santa = (0, 0)
+    robot = (0, 0)
+    visited = initSet[Coordinate]()
   visited.incl(santa)
 
-  proc move(position: var Complex, m: char) =
+  proc move(position: var Coordinate, m: int) =
     position += movement[m]
     visited.incl(position)
 
