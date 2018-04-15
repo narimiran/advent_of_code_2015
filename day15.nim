@@ -1,7 +1,7 @@
 import re, strutils
 
 const instructions = readFile("./inputs/15.txt").strip.splitLines
-let pattern = re"""
+let pattern = rex"""
     (\w+):\s
     capacity \s (-*\d+), \s
     durability \s (-*\d+), \s

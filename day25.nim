@@ -9,7 +9,7 @@ const
 proc findExponent(row, col: int): int =
   result = col - 1
   let startingRow = row + col - 1
-  for i in 1 .. <startingRow:
+  for i in 1 ..< startingRow:
     result += i
 
 

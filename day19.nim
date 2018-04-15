@@ -24,8 +24,19 @@ for key in replacements.keys:
   while pos != -1:
     for val in replacements[key]:
       var m = molecule
-      m[pos .. <pos+n] = val
+      m[pos ..< pos+n] = val
       combinations.incl(m)
     pos = molecule.find(key, pos+n)
 
 echo len(combinations)
+
+# https://www.reddit.com/r/adventofcode/comments/3xflz8/day_19_solutions/cy4etju/
+var
+  noOfElements: int
+for c in molecule:
+  if c.isUpperAscii: inc noOfElements
+let
+  noOfRn = molecule.count("Rn")
+  noOfY = molecule.count('Y')
+
+echo(noOfElements - 2*noOfRn - 2*noOfY - 1)

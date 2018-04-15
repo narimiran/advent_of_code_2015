@@ -15,7 +15,7 @@ var a = parseJson(instructions)
 proc calc(a: JsonNode): int =
   case a.kind
   of JInt:
-    result += a.getNum.int
+    result += a.getInt
   of JArray:
     for e in a.items:
       result += calc(e)
