@@ -3,26 +3,32 @@ import strutils, algorithm, tables, math
 const instructions = readFile("./inputs/09.txt").strip.splitLines
 
 var
-  distances = initTable[string, Table[string, int]]()
-  locations: seq[string] = @[]
+  distances: array[8, array[8, int]]
+  locations = [0, 1, 2, 3, 4, 5, 6, 7]
   paths: seq[int] = @[]
+  fields: seq[string]
+  a, b, dist: int
+
+proc parse(s: string): int =
+  case s
+    of "Faerun": 0
+    of "Tristram": 1
+    of "Tambi": 2
+    of "Norrath": 3
+    of "Snowdin": 4
+    of "Straylight": 5
+    of "AlphaCentauri": 6
+    of "Arbre": 7
+    else: -1
 
 for line in instructions:
-  let
-    fields = line.split()
-    a = fields[0]
-    b = fields[2]
-    dist = fields[^1]
-  if not distances.hasKey(a):
-    distances[a] = initTable[string, int]()
-  if not distances.hasKey(b):
-    distances[b] = initTable[string, int]()
-  distances[a][b] = parseInt(dist)
-  distances[b][a] = parseInt(dist)
+  fields = line.split()
+  a = fields[0].parse
+  b = fields[2].parse
+  dist = fields[^1].parseInt
+  distances[a][b] = dist
+  distances[b][a] = dist
 
-for k in distances.keys():
-  locations.add(k)
-locations = locations.sorted(cmp)
 
 for _ in 0 .. fac(locations.len):
   var total: int
@@ -31,7 +37,5 @@ for _ in 0 .. fac(locations.len):
   paths.add(total)
   locations.nextPermutation()
 
-paths = paths.sorted(cmp)
-
-echo paths[0]
-echo paths[^1]
+echo min(paths)
+echo max(paths)
