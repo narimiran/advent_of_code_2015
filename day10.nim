@@ -1,7 +1,7 @@
-const input = "3113322113"
+var digits = @[3, 1, 1, 3, 3, 2, 2, 1, 1, 3]
 
-proc say(word: string): string =
-  result = ""
+proc say(word: seq[int]): seq[int] =
+  result = @[]
   var
     a = word[0]
     repeats = 1
@@ -9,17 +9,19 @@ proc say(word: string): string =
   for c in word[1 .. word.high]:
     if c == a: repeats += 1
     else:
-      result.add($repeats & a)
+      result.add(repeats)
+      result.add(a)
       a = c
       repeats = 1
-  result.add($repeats & a)
+  result.add(repeats)
+  result.add(a)
 
-proc repeat(word: string, times: int): string =
-  result = word
+proc repeat(word: var seq[int], times: int) =
   for _ in 1 .. times:
-    result = result.say()
+    word = word.say()
 
 
-let first = input.repeat(40)
-echo first.len
-echo first.repeat(10).len
+digits.repeat(40)
+echo digits.len
+digits.repeat(10)
+echo digits.len
