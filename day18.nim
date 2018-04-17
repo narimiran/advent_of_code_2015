@@ -3,36 +3,32 @@ import strutils
 const instructions = readFile("./inputs/18.txt").splitLines
 
 type
-  Grid = array[102, string]
+  Grid = array[102, array[102, bool]]
 
 
 proc createGrid(instr: seq[string]): Grid =
   for i, line in instr:
-    result[i+1] = "." & line & "."
-  result[0] = '.'.repeat(102)
-  result[101] = '.'.repeat(102)
+    for j, c in line:
+      result[i+1][j+1] = c == '#'
 
 
 proc countNeighbours(grid: Grid, row, col: int): int =
   for r in row-1 .. row+1:
-    result += grid[r][col-1 .. col+1].count('#')
+    for c in col-1 .. col+1:
+      if grid[r][c]:
+        inc result
 
 
 proc changeState(grid: Grid, secondPart=false): Grid =
-  result[0] = '.'.repeat(102)
-  result[101] = '.'.repeat(102)
   for i in 1 .. 100:
-    result[i] = "."
     for j in 1 .. 100:
       let n = countNeighbours(grid, i, j)
-      if (grid[i][j] == '#' and n in 3..4) or n == 3: result[i].add('#')
-      else: result[i].add('.')
-    result[i].add('.')
+      if (grid[i][j] and n in 3..4) or n == 3: result[i][j] = true
   if secondPart:
-    result[1][1] = '#'
-    result[1][100] = '#'
-    result[100][1] = '#'
-    result[100][100] = '#'
+    result[1][1] = true
+    result[1][100] = true
+    result[100][1] = true
+    result[100][100] = true
 
 
 proc solve(grid: Grid, secondPart=false): int =
@@ -40,9 +36,11 @@ proc solve(grid: Grid, secondPart=false): int =
   for _ in 1 .. 100:
     grid = changeState(grid, secondPart)
   for row in grid:
-    result += row.count('#')
+    for col in row:
+      if col:
+        inc result
 
 
-var grid = createGrid(instructions)
+const grid = createGrid(instructions)
 echo solve(grid)
 echo solve(grid, true)
