@@ -1,18 +1,11 @@
-import deques
+type
+  Difficulty = enum normal, hard
+  State = object
+    mana, spentMana: int
+    hp, bossHP: int
+    shieldTurns, poisonTurns, rechargeTurns: int
 
-const bossDmg = 8
-
-type State = object
-  mana: int
-  spentMana: int
-  hp: int
-  bossHP: int
-  shieldTurns: int
-  poisonTurns: int
-  rechargeTurns: int
-
-
-let
+const
   magicMissile = (
     cost: 53,
     effect: proc(s: var State) = s.bossHP -= 4,
@@ -38,8 +31,8 @@ let
     effect: proc(s: var State) = s.rechargeTurns = 5,
     active: proc(s: State): bool = s.rechargeTurns > 0
   )
-
-let spells = [magicMissile, drain, shield, poison, recharge]
+  spells = [magicMissile, drain, shield, poison, recharge]
+  bossDmg = 8
 
 
 proc applyEffects(s: var State) =
@@ -51,16 +44,17 @@ proc applyEffects(s: var State) =
     s.rechargeTurns -= 1
 
 
-proc battle(s: State, isHard: bool): int =
-  var states = initDeque[State]()
-  states.addFirst(s)
+proc battle(s: State, difficulty: Difficulty): int =
+  var
+    states = @[s]
+    state: State
   result = int.high
 
   while len(states) > 0:
-    var state = states.popFirst()
+    state = states.pop()
 
-    if isHard:
-      state.hp -= 1
+    if difficulty == hard:
+      dec state.hp
       if state.hp <= 0:
         continue
 
@@ -70,7 +64,7 @@ proc battle(s: State, isHard: bool): int =
       continue
 
     if state.shieldTurns > 0:
-      state.shieldTurns -= 1
+      dec state.shieldTurns
 
     for spell in spells:
       if (spell.cost <= state.mana and
@@ -88,15 +82,15 @@ proc battle(s: State, isHard: bool): int =
 
         if newState.shieldTurns > 0:
           newState.hp -= bossDmg - 7
-          newState.shieldTurns -= 1
+          dec newState.shieldTurns
         else:
           newState.hp -= bossDmg
 
         if newState.hp > 0:
-          states.addLast(newState)
+          states.add(newState)
 
 
 var startingPosition = State(mana: 500, hp: 50, bossHP: 55)
 
-echo battle(startingPosition, false)
-echo battle(startingPosition, true)
+echo battle(startingPosition, normal)
+echo battle(startingPosition, hard)
