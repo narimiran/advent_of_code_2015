@@ -1,6 +1,6 @@
-import strutils, algorithm, tables, math
+import strutils, algorithm
 
-const instructions = readFile("./inputs/09.txt").strip.splitLines
+const instructions = readFile("./inputs/09.txt").strip.splitLines()
 
 var
   distances: array[8, array[8, int]]
@@ -9,7 +9,7 @@ var
   fields: seq[string]
   a, b, dist: int
 
-proc parse(s: string): int =
+func parse(s: string): int =
   case s
     of "Faerun": 0
     of "Tristram": 1
@@ -30,12 +30,11 @@ for line in instructions:
   distances[b][a] = dist
 
 
-for _ in 0 .. fac(locations.len):
+while locations.nextPermutation():
   var total: int
   for i, loc in locations[1 .. ^1]:
     total += distances[loc][locations[i]]
   paths.add(total)
-  locations.nextPermutation()
 
 echo min(paths)
 echo max(paths)

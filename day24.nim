@@ -12,7 +12,7 @@ type Package = tuple
 var presents = sorted(instructions, cmp, SortOrder.Descending)
 
 
-proc calc(remaining: int, presents: seq[int], combinations: var seq[Package],
+func calc(remaining: int, presents: seq[int], combinations: var seq[Package],
           used=0, qe=1) =
   if remaining == 0:
     combinations.add((used, qe))
@@ -26,8 +26,7 @@ proc calc(remaining: int, presents: seq[int], combinations: var seq[Package],
 proc findSolution(goal: int): int =
   var combinations = newSeq[Package]()
   calc(goal, presents, combinations)
-  combinations.sort(cmp)
-  return combinations[0][1]
+  return min(combinations)[1]
 
 
 echo findSolution(firstGoal)

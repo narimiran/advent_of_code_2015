@@ -1,13 +1,6 @@
-import re, strutils
+import strutils, strscans
 
-const instructions = readFile("./inputs/15.txt").strip.splitLines
-let pattern = rex"""
-    (\w+):\s
-    capacity \s (-*\d+), \s
-    durability \s (-*\d+), \s
-    flavor \s (-*\d+), \s
-    texture \s (-*\d+), \s
-    calories \s (-*\d+)"""
+const instructions = readFile("./inputs/15.txt").strip.splitLines()
 
 var
   caps: array[4, int]
@@ -17,16 +10,13 @@ var
   cals: array[4, int]
 
 for i, line in instructions:
-  var matches: array[6, string]
-  discard line.match(pattern, matches)
-  caps[i] = matches[1].parseInt
-  durs[i] = matches[2].parseInt
-  flavs[i] = matches[3].parseInt
-  texs[i] = matches[4].parseInt
-  cals[i] = matches[5].parseInt
+  var name: string
+  discard line.scanf("$+ capacity $i, durability $i, flavor $i, texture $i, calories $i",
+                     name, caps[i], durs[i], flavs[i], texs[i], cals[i])
 
 
-proc calculateScore(property: openArray[int], a, b, c, d: int): int =
+
+func calculateScore(property: openArray[int], a, b, c, d: int): int =
   a * property[0] + b * property[1] + c * property[2] + d * property[3]
 
 var maxScore1, maxScore2: int

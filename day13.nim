@@ -2,31 +2,30 @@ import strutils, algorithm, math
 
 const instructions = readFile("./inputs/13.txt").strip.splitLines
 
-var
-  people = @[0, 1, 2, 3, 4, 5, 6, 7, 8]
-  happinessChart: array[9, array[9, int]]
-  fields: seq[string]
-  name, neighbour: int
-  direction, amount: int
+let people = [0, 1, 2, 3, 4, 5, 6, 7, 8]
 
-proc gain(a: string): int =
+func gain(a: string): int =
   if a == "gain": 1 else: -1
 
-proc parse(c: char): int =
+func parse(c: char): int =
   let i = ord(c) - ord('A')
   if i > 6: 7 else: i
 
-for line in instructions:
-  fields = line.split()
-  name = fields[0][0].parse
-  neighbour = fields[^1][0].parse
-  direction = gain(fields[2])
-  amount = parseInt(fields[3])
-  happinessChart[name][neighbour] = direction * amount
+
+const happinessChart = block:
+  var res: array[9, array[9, int]] 
+  for line in instructions:
+    let
+      fields = line.split()
+      name = fields[0][0].parse
+      neighbour = fields[^1][0].parse
+      direction = gain(fields[2])
+      amount = parseInt(fields[3])
+    res[name][neighbour] = direction * amount
+  res
 
 
-proc findHappiness(people: seq[int]): seq[int] =
-  result = @[]
+func findHappiness(people: openArray[int]): seq[int] =
   let last = people[^1]
   var others = people[0 .. ^2]
 

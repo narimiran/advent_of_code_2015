@@ -2,12 +2,10 @@ import strutils, sequtils, algorithm
 
 const instructions = readFile("./inputs/02.txt").strip.splitLines
 
-proc wrapIt(a, b, c: int): int = 2 * (a*b + a*c + b*c) + a*b
-proc putRibbon(a, b, c: int): int = 2*(a+b) + a*b*c
+func wrapIt(a, b, c: int): int = 2 * (a*b + a*c + b*c) + a*b
+func putRibbon(a, b, c: int): int = 2*(a+b) + a*b*c
 
-var
-  totalWrap: int
-  totalRibbon: int
+var totalWrap, totalRibbon: int
 
 for line in instructions:
   var dimensions = line.split('x').map(parseInt)

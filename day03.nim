@@ -3,7 +3,7 @@ import sets, sequtils
 
 type Coordinate = tuple[x, y: int]
 
-proc parse(c: char): int =
+func parse(c: char): int =
   case c
     of '<': 0
     of '>': 1
@@ -14,6 +14,7 @@ proc parse(c: char): int =
 const
   instructions = readFile("./inputs/03.txt").map(parse)
   movement = [(-1, 0), (1, 0), (0, 1), (0, -1)]
+
 
 proc `+=`(a: var Coordinate, b: Coordinate) =
   a = (a.x + b.x, a.y + b.y)

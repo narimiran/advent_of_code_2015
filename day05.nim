@@ -6,7 +6,7 @@ const
   naughty = ["ab", "cd", "pq", "xy"]
 
 
-proc firstPart(): int =
+func firstPart(): int =
   for line in instructions:
     var
       nrVowels: int
@@ -24,7 +24,7 @@ proc firstPart(): int =
         inc result
 
 
-proc secondPart(): int =
+func secondPart(): int =
   for line in instructions:
     var
       pair: bool

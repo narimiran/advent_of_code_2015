@@ -11,19 +11,20 @@ type
     stamina: int
     rest: int
 
-var reindeers = newSeq[Reindeer]()
+const reindeers = block:
+  var reindeers: seq[Reindeer]
+  for line in instructions:
+    let
+      words = line.splitWhitespace()
+      name = words[0]
+      speed = words[3].parseInt
+      stamina = words[6].parseInt
+      rest = words[^2].parseInt
+    reindeers.add((name, speed, stamina, rest))
+  reindeers
 
-for line in instructions:
-  let
-    words = line.splitWhitespace()
-    name = words[0]
-    speed = words[3].parseInt
-    stamina = words[6].parseInt
-    rest = words[^2].parseInt
-  reindeers.add((name, speed, stamina, rest))
 
-
-proc calculateDistance(reindeer: Reindeer, time: int): int =
+func calculateDistance(reindeer: Reindeer, time: int): int =
   let
     v = reindeer.speed
     t = reindeer.stamina
@@ -31,14 +32,13 @@ proc calculateDistance(reindeer: Reindeer, time: int): int =
   result = time div (t+r) * (v * t) + (v * min(t, time mod (t+r)))
 
 
-proc calculateMaxDistance(reindeers: seq[Reindeer], time: int): int =
+func calculateMaxDistance(reindeers: seq[Reindeer], time: int): int =
   for rd in reindeers:
     let distance = rd.calculateDistance(time)
     result = max(result, distance)
 
 
-proc findPartialWinners(reindeers: seq[Reindeer], time: int): seq[string] =
-  result = @[]
+func findPartialWinners(reindeers: seq[Reindeer], time: int): seq[string] =
   for t in 1..time:
     var
       maxDist: int
@@ -51,7 +51,7 @@ proc findPartialWinners(reindeers: seq[Reindeer], time: int): seq[string] =
     result.add(winner)
 
 
-proc findWinner(reindeers: seq[Reindeer], time: int): int =
+func findWinner(reindeers: seq[Reindeer], time: int): int =
   let winners = findPartialWinners(reindeers, time)
   for rd in reindeers:
     let nr = winners.filterIt(it == rd.name).len

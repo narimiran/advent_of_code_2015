@@ -25,7 +25,7 @@ var second: int
 
 for c in combinations:
   if c == m:
-    second += 1
+    inc second
 
-echo len(combinations)
+echo combinations.len
 echo second

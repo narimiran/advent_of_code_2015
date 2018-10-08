@@ -7,7 +7,7 @@ var
   combinations = initSet[string]()
 
 
-for i in 0 .. instructions.high()-2:
+for i in 0 .. instructions.high-2:
   let values = instructions[i].split(" => ")
   if not replacements.hasKey(values[0]):
     replacements[values[0]] = @[values[1]]

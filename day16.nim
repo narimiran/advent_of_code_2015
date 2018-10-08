@@ -17,7 +17,7 @@ const
 
 let pattern = re"(\w+):\s(\d+)"
 
-proc check(name: string, value: int): bool =
+func check(name: string, value: int): bool =
   case name
   of "cats", "trees":
     return ticker[name] < value

@@ -10,9 +10,9 @@ for m in re.findAll(instructions, pattern):
 echo total
 
 
-var a = parseJson(instructions)
+let a = parseJson(instructions)
 
-proc calc(a: JsonNode): int =
+func calc(a: JsonNode): int =
   case a.kind
   of JInt:
     result += a.getInt

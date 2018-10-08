@@ -6,14 +6,14 @@ const
   col = 3075
 
 
-proc findExponent(row, col: int): int =
+func findExponent(row, col: int): int =
   result = col - 1
   let startingRow = row + col - 1
   for i in 1 ..< startingRow:
     result += i
 
 
-proc findValue(b, e, d: int): int =
+func findValue(b, e, d: int): int =
   # https://en.wikipedia.org/wiki/Modular_exponentiation#Right-to-left_binary_method
   result = 1
   var

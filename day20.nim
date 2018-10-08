@@ -4,7 +4,7 @@ const
   secondTarget = input div 11
 
 
-proc solve(target, limit: int): int =
+func solve(target, limit: int): int =
   var houses = newSeq[int](target)
   for i in 1 .. target:
     for j in 1 .. min(target div i, limit):
