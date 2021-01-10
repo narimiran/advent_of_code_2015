@@ -7,6 +7,7 @@ All my Advent of Code repos:
 * [AoC 2017 in Nim, Python, OCaml](https://github.com/narimiran/AdventOfCode2017)
 * [AoC 2018 in Nim](https://github.com/narimiran/AdventOfCode2018)
 * [AoC 2019 in OCaml](https://github.com/narimiran/AdventOfCode2019)
+* [AoC 2020 in Nim, one liner-y Python](https://github.com/narimiran/AdventOfCode2020)
 
 
 &nbsp;
@@ -45,9 +46,9 @@ Dec 16 | [Aunt Sue](http://adventofcode.com/2015/day/16)                        
 Dec 17 | [No Such Thing as Too Much](http://adventofcode.com/2015/day/17)             | [link](nim/day17.nim)
 Dec 18 | [Like a GIF For Your Yard](http://adventofcode.com/2015/day/18)              | [link](nim/day18.nim)
 Dec 19 | [Medicine for Rudolph](http://adventofcode.com/2015/day/19)                  | [link](nim/day19.nim)
-Dec 20 | [Infinite Elves and Infinite Houses](http://adventofcode.com/2015/day/10)    | [link](nim/day10.nim)
-Dec 21 | [RPG Simulator 20XX](http://adventofcode.com/2015/day/11)                    | [link](nim/day11.nim)
-Dec 22 | [Wizard Simulator 20XX](http://adventofcode.com/2015/day/12)                 | [link](nim/day12.nim)
-Dec 23 | [Opening the Turing Lock](http://adventofcode.com/2015/day/13)               | [link](nim/day13.nim)
-Dec 24 | [It Hangs in the Balance](http://adventofcode.com/2015/day/14)               | [link](nim/day14.nim)
-Dec 25 | [Let It Snow](http://adventofcode.com/2015/day/15)                           | [link](nim/day15.nim)
+Dec 20 | [Infinite Elves and Infinite Houses](http://adventofcode.com/2015/day/20)    | [link](nim/day20.nim)
+Dec 21 | [RPG Simulator 20XX](http://adventofcode.com/2015/day/21)                    | [link](nim/day21.nim)
+Dec 22 | [Wizard Simulator 20XX](http://adventofcode.com/2015/day/22)                 | [link](nim/day22.nim)
+Dec 23 | [Opening the Turing Lock](http://adventofcode.com/2015/day/23)               | [link](nim/day23.nim)
+Dec 24 | [It Hangs in the Balance](http://adventofcode.com/2015/day/24)               | [link](nim/day24.nim)
+Dec 25 | [Let It Snow](http://adventofcode.com/2015/day/25)                           | [link](nim/day25.nim)
