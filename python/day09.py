@@ -1,5 +1,4 @@
 from itertools import permutations
-from functools import reduce
 
 
 def parse_line(line):
@@ -16,10 +15,8 @@ def create_relations(data):
     return locations, relations
 
 solve = lambda func: (
-    reduce(func,
-           (sum(relations[trip] for trip in zip(route, route[1:]))
-                for route in permutations(locations)),
-           0 if func == max else 99999999999))
+    func(sum(relations[trip] for trip in zip(route, route[1:]))
+         for route in permutations(locations)))
 
 
 data = map(parse_line, open("inputs/09.txt").read().splitlines())
